@@ -1,19 +1,17 @@
 
-let result = false;
+let keys = [];
 
-function checkPropertyInObj(obj, value) {
+function iterateKeysInObj(obj) {
 
-    if (obj.hasOwnProperty(value)) {
-        result = true;
+    for (var k in obj) {
+        keys.push(k)
+        typeof obj[k] === 'object' && iterateKeysInObj(obj[k]);
     }
-    else {
-        for (var k in obj) {
-            typeof obj[k] === 'object' && checkPropertyInObj(obj[k], value);
-        }
-    }
-
-    return result
+    return keys
 };
+
+
+
 
 const students = {
     name: 'David',
@@ -39,4 +37,4 @@ const students = {
     }
 }
 
-console.log(checkPropertyInObj(students, 'skill'))
+console.log(iterateKeysInObj(students))
